@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -22,6 +23,21 @@ export const links = () => [
 ];
 
 export function Layout({ children }) {
+  let navLinks = [
+    {
+      path: "/",
+      text: "Home",
+    },
+    {
+      path: "/movies",
+      text: "Movies",
+    },
+    {
+      path: "/series",
+      text: "Series",
+    },
+  ];
+
   return (
     <html lang="en">
       <head>
@@ -31,6 +47,22 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
+        <header className="flex justify-between items-center p-4 lg:p-8">
+          <img src="/logo.svg" alt="" className="h-20 w-20" />
+          {/* TODO: Make nav responsive */}
+          <nav>
+            <ul className="flex gap-4 items-center">
+              {navLinks.map((item, index) => (
+                <li
+                  key={index}
+                  className="hover:text-orange-300 transition ease-in-out duration-300"
+                >
+                  <Link to={item.path}>{item.text}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </header>
         {children}
         <ScrollRestoration />
         <Scripts />
